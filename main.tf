@@ -4,16 +4,16 @@ resource "digitalocean_ssh_key" "key" {
 }
 
 resource "digitalocean_droplet" "nethermind-client" {
-  count       = "${var.num}"
-  image       = "ubuntu-20-04-x64"
-  name        = "${format("%s-%s-%02d", var.prefix, "lon1", count.index + 1)}"
-  region      = "lon1"
-  size        = "${var.sizeList[var.size]}"
+  count    = var.num
+  image    = "ubuntu-20-04-x64"
+  name     = format("%s-%s-%02d", var.prefix, "lon1", count.index + 1)
+  region   = "lon1"
+  size     = var.sizeList[var.size]
   ssh_keys = [digitalocean_ssh_key.key.fingerprint]
   connection {
     user        = "root"
     type        = "ssh"
-    private_key = "${file(var.pvt_key)}"
+    private_key = file(var.pvt_key)
     timeout     = "2m"
     host        = self.ipv4_address
   }
