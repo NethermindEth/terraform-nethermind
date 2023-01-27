@@ -29,7 +29,7 @@ variable "config" {
 variable "rpc_enabled" {
   description = "Specify whether JSON RPC should be enabled"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "sizeList" {
